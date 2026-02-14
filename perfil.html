@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Perfil - Calculadora de Agua</title>
+  <link rel="stylesheet" href="css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="header-app">
+  <div class="container">
+    <h1 style="display: inline-block;">Mi Perfil</h1>
+    <div class="header-buttons">
+      <button onclick="irAlCalculador()" class="btn-perfil">Calculadora</button>
+      <button onclick="cerrarSesion()" class="btn-logout">Cerrar Sesión</button>
+    </div>
+  </div>
+</div>
+
+<div class="container perfil-container">
+  <!--Sección de Foto de Perfil-->
+  <div class="profile-card">
+    <div class="foto-perfil-section">
+      <div class="foto-perfil-wrapper">
+        <img id="fotoPerfil" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='100' fill='%23ddd'/%3E%3Ccircle cx='100' cy='70' r='35' fill='%23999'/%3E%3Cellipse cx='100' cy='150' rx='50' ry='40' fill='%23999'/%3E%3C/svg%3E" alt="Foto de perfil" class="foto-perfil">
+        <label for="uploadFoto" class="btn-upload-foto">Cambiar foto</label>
+        <input type="file" id="uploadFoto" accept="image/*" style="display:none;">
+      </div>
+
+      <div class="info-usuario">
+        <h2 id="nombreUsuario"></h2>
+        <p id="fechaRegistro"></p>
+        <p id="fechaLogin"></p>
+      </div>
+    </div>
+  </div>
+
+  <!--Sección de Estadísticas-->
+  <div class="estadisticas-section">
+    <h3>Mis Estadísticas</h3>
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number" id="totalBusquedas">0</div>
+        <div class="stat-label">Búsquedas Realizadas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="productoMasBuscado">-</div>
+        <div class="stat-label">Producto Más Buscado</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="promediaLitros">0</div>
+        <div class="stat-label">Promedio de Litros</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="totalLitros">0</div>
+        <div class="stat-label">Total de Litros</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gráficos -->
+  <div class="graficos-section">
+    <div class="grafico-card">
+      <h4>Top 5 Productos Más Buscados</h4>
+      <canvas id="chartProductos" height="80"></canvas>
+    </div>
+
+    <div class="grafico-card">
+      <h4>Categorías de Búsqueda</h4>
+      <canvas id="chartCategorias" height="80"></canvas>
+    </div>
+  </div>
+
+  <!-- Botón para limpiar historial -->
+  <div class="acciones-section">
+    <button onclick="limpiarHistorial()" class="btn-danger">Limpiar Historial</button>
+  </div>
+</div>
+
+<script src="perfil.js"></script>
+<script src="theme.js"></script>
+
+</body>
+</html>

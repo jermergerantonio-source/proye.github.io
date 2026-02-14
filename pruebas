@@ -1,0 +1,290 @@
+/**
+ * ARCHIVO DE PRUEBAS - SISTEMA DE CLASIFICACIÓN
+ * 
+ * Este archivo demuestra cómo funciona el clasificador
+ * con varios ejemplos reales de objetos.
+ * 
+ * Para usar: Abre la consola del navegador (F12) y ejecuta las funciones
+ */
+
+// ============================================
+// EJEMPLOS DE CLASIFICACIÓN
+// ============================================
+
+/**
+ * Ejemplo 1: Objetos no esenciales con alto impacto
+ */
+function ejemplo1_ConsumoInnecesario() {
+  console.log("=== EJEMPLO 1: CONSUMO INNECESARIO ===\n");
+  
+  const objetos = ['refresco', 'cerveza', 'energia', 'consola'];
+  
+  objetos.forEach(obj => {
+    const litros = datos[obj];
+    const result = clasificarObjeto(obj, litros);
+    
+    console.log(`📌 ${obj.toUpperCase()}`);
+    console.log(`   Litros: ${litros}`);
+    console.log(`   Categoría: ${result.categoria}`);
+    console.log(`   Necesidad: ${result.necesidad}`);
+    console.log(`   ---`);
+  });
+}
+
+/**
+ * Ejemplo 2: Objetos útiles con impacto moderado
+ */
+function ejemplo2_UsoModerado() {
+  console.log("=== EJEMPLO 2: USO MODERADO ===\n");
+  
+  const objetos = ['tablet', 'monitor', 'folder', 'marcador'];
+  
+  objetos.forEach(obj => {
+    const litros = datos[obj];
+    const result = clasificarObjeto(obj, litros);
+    
+    console.log(`📌 ${obj.toUpperCase()}`);
+    console.log(`   Litros: ${litros}`);
+    console.log(`   Categoría: ${result.categoria}`);
+    console.log(`   Necesidad: ${result.necesidad}`);
+    console.log(`   ---`);
+  });
+}
+
+/**
+ * Ejemplo 3: Objetos necesarios (usa responsable)
+ */
+function ejemplo3_UsoResponsable() {
+  console.log("=== EJEMPLO 3: USO RESPONSABLE ===\n");
+  
+  const objetos = ['agua', 'celular', 'laptop', 'playera', 'lapiz', 'libreta'];
+  
+  objetos.forEach(obj => {
+    const litros = datos[obj];
+    const result = clasificarObjeto(obj, litros);
+    
+    console.log(`📌 ${obj.toUpperCase()}`);
+    console.log(`   Litros: ${litros}`);
+    console.log(`   Categoría: ${result.categoria}`);
+    console.log(`   Necesidad: ${result.necesidad}`);
+    console.log(`   ---`);
+  });
+}
+
+/**
+ * Ejemplo 4: Comparación de objetos
+ */
+function ejemplo4_Comparacion() {
+  console.log("=== EJEMPLO 4: COMPARACIÓN DE OBJETOS ===\n");
+  
+  const comparar = {
+    'refresco (250L)': 'refresco',
+    'lapiz (5L)': 'lapiz',
+    'laptop (20,000L)': 'laptop'
+  };
+  
+  console.log("Clasificación comparativa:\n");
+  
+  Object.entries(comparar).forEach(([etiqueta, obj]) => {
+    const litros = datos[obj];
+    const result = clasificarObjeto(obj, litros);
+    
+    console.log(`${etiqueta}`);
+    console.log(`→ ${result.categoria}`);
+    console.log(`→ Impacto: ${result.impacto}`);
+    console.log(`→ Necesidad: ${result.necesidad}\n`);
+  });
+}
+
+/**
+ * Ejemplo 5: Análisis completo de un objeto
+ */
+function ejemplo5_AnalisisCompleto() {
+  console.log("=== EJEMPLO 5: ANÁLISIS COMPLETO ===\n");
+  
+  const obj = 'laptop';
+  const litros = datos[obj];
+  const result = clasificarObjeto(obj, litros);
+  
+  console.log(`OBJETO: ${obj.toUpperCase()}`);
+  console.log(`\nDATA:`);
+  console.log(`  - Litros de agua: ${litros.toLocaleString()}`);
+  console.log(`  - Impacto: ${result.impacto}`);
+  console.log(`  - Necesidad: ${result.necesidad}`);
+  console.log(`  - Prioridad: ${result.prioridad}`);
+  console.log(`\nCLASIFICACIÓN:`);
+  console.log(`  ✓ ${result.categoria}`);
+  console.log(`\nEXPLICACIÓN:`);
+  console.log(result.explicacion);
+  console.log(`\n`);
+}
+
+/**
+ * Ejemplo 6: Estadísticas generales
+ */
+function ejemplo6_Estadisticas() {
+  console.log("=== EJEMPLO 6: ESTADÍSTICAS GENERALES ===\n");
+  
+  // Clasificar todos los objetos
+  const todosBebidas = [
+    'refresco', 'lata', 'agua', 'cafe', 'energia', 'cerveza'
+  ];
+  
+  const todosElectronicos = [
+    'cable', 'audifonos', 'cargador', 'powerbank', 'celular', 
+    'tablet', 'laptop', 'monitor', 'consola'
+  ];
+  
+  const todosEscolares = [
+    'lapiz', 'pluma', 'marcador', 'libreta', 'cuaderno', 'hoja',
+    'paquete', 'folder', 'carpeta', 'mochila', 'calculadora',
+    'cartucho', 'toner', 'libro'
+  ];
+  
+  // Clasificar y contar
+  function clasificarCategoria(lista) {
+    const stats = {};
+    lista.forEach(obj => {
+      const result = clasificarObjeto(obj, datos[obj]);
+      stats[result.categoria] = (stats[result.categoria] || 0) + 1;
+    });
+    return stats;
+  }
+  
+  console.log("BEBIDAS:");
+  console.log(clasificarCategoria(todosBebidas));
+  console.log("\nELECTRÓNICA:");
+  console.log(clasificarCategoria(todosElectronicos));
+  console.log("\nESCOLARES:");
+  console.log(clasificarCategoria(todosEscolares));
+}
+
+/**
+ * Ejemplo 7: Casos extremos
+ */
+function ejemplo7_CasosExtremos() {
+  console.log("=== EJEMPLO 7: CASOS EXTREMOS ===\n");
+  
+  console.log("MAYOR IMPACTO:");
+  const maxObj = Object.entries(datos).reduce((max, [obj, lits]) => 
+    lits > max[1] ? [obj, lits] : max
+  );
+  const maxResult = clasificarObjeto(maxObj[0], maxObj[1]);
+  console.log(`${maxObj[0]}: ${maxObj[1].toLocaleString()} litros`);
+  console.log(`Categoría: ${maxResult.categoria}\n`);
+  
+  console.log("MENOR IMPACTO:");
+  const minObj = Object.entries(datos).reduce((min, [obj, lits]) => 
+    lits < min[1] ? [obj, lits] : min
+  );
+  const minResult = clasificarObjeto(minObj[0], minObj[1]);
+  console.log(`${minObj[0]}: ${minObj[1]} litros`);
+  console.log(`Categoría: ${minResult.categoria}\n`);
+}
+
+/**
+ * Ejemplo 8: Simular búsquedas de usuario
+ */
+function ejemplo8_HistorialUsuario() {
+  console.log("=== EJEMPLO 8: HISTORIAL DE BÚSQUEDAS ===\n");
+  
+  const busquedas = ['refresco', 'laptop', 'lapiz', 'cerveza', 'agua'];
+  const historial = [];
+  
+  busquedas.forEach((obj, index) => {
+    const result = clasificarObjeto(obj, datos[obj]);
+    historial.push(result);
+    console.log(`${index + 1}. ${obj}: ${result.categoria}`);
+  });
+  
+  // Estadísticas
+  const stats = obtenerEstadisticas(historial);
+  console.log(`\nRESUMEN DE BÚSQUEDAS:`);
+  console.log(`  - Consumo innecesario: ${stats['consumo innecesario']}`);
+  console.log(`  - Uso moderado: ${stats['uso moderado']}`);
+  console.log(`  - Uso responsable: ${stats['uso responsable']}`);
+}
+
+// ============================================
+// FUNCIONES DE DEMOSTRACIÓN RÁPIDA
+// ============================================
+
+/**
+ * Ejecuta todos los ejemplos
+ */
+function ejecutarTodasPruebas() {
+  console.clear();
+  console.log("🧪 EJECUTANDO TODAS LAS PRUEBAS DEL CLASIFICADOR\n");
+  console.log("=" .repeat(50) + "\n");
+  
+  ejemplo1_ConsumoInnecesario();
+  console.log("\n" + "=".repeat(50) + "\n");
+  
+  ejemplo2_UsoModerado();
+  console.log("\n" + "=".repeat(50) + "\n");
+  
+  ejemplo3_UsoResponsable();
+  console.log("\n" + "=".repeat(50) + "\n");
+  
+  ejemplo4_Comparacion();
+  console.log("\n" + "=".repeat(50) + "\n");
+  
+  ejemplo5_AnalisisCompleto();
+  console.log("\n" + "=".repeat(50) + "\n");
+  
+  ejemplo6_Estadisticas();
+  console.log("\n" + "=".repeat(50) + "\n");
+  
+  ejemplo7_CasosExtremos();
+  console.log("\n" + "=".repeat(50) + "\n");
+  
+  ejemplo8_HistorialUsuario();
+  
+  console.log("\n" + "=".repeat(50));
+  console.log("✅ PRUEBAS COMPLETADAS");
+}
+
+/**
+ * Clasificación rápida de un objeto
+ */
+function verClasificacion(objeto) {
+  if (!datos[objeto]) {
+    console.warn(`❌ Objeto "${objeto}" no encontrado`);
+    return;
+  }
+  
+  const result = clasificarObjeto(objeto, datos[objeto]);
+  console.log(`\n📊 CLASIFICACIÓN: ${objeto.toUpperCase()}\n`);
+  console.log(`Litros: ${result.litros.toLocaleString()}`);
+  console.log(`Impacto: ${result.impacto}`);
+  console.log(`Necesidad: ${result.necesidad}`);
+  console.log(`Categoría: ${result.categoria}`);
+  console.log(`\n${result.explicacion}`);
+}
+
+// ============================================
+// INSTRUCCIONES DE USO
+// ============================================
+
+console.log(`
+╔════════════════════════════════════════════════════════════╗
+║                                                            ║
+║        PRUEBAS DEL SISTEMA DE CLASIFICACIÓN              ║
+║                                                            ║
+║        Escribe en la consola (F12):                       ║
+║                                                            ║
+║        • ejecutarTodasPruebas()    - Todas las pruebas    ║
+║        • ejemplo1_ConsumoInnecesario()                    ║
+║        • ejemplo2_UsoModerado()                           ║
+║        • ejemplo3_UsoResponsable()                        ║
+║        • ejemplo4_Comparacion()                           ║
+║        • ejemplo5_AnalisisCompleto()                      ║
+║        • ejemplo6_Estadisticas()                          ║
+║        • ejemplo7_CasosExtremos()                         ║
+║        • ejemplo8_HistorialUsuario()                      ║
+║        • verClasificacion('objeto')  - Clasificación rápida║
+║                                                            ║
+║        Ejemplo: verClasificacion('laptop')                ║
+║                                                            ║
+╚════════════════════════════════════════════════════════════╝
+`);
